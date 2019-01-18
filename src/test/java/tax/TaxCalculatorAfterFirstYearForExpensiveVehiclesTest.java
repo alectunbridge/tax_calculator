@@ -1,7 +1,7 @@
 package tax;
 
+import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.time.LocalDate;
@@ -10,7 +10,6 @@ import static java.time.Month.APRIL;
 import static org.assertj.core.api.Assertions.assertThat;
 import static tax.FuelType.*;
 
-@Ignore
 public class TaxCalculatorAfterFirstYearForExpensiveVehiclesTest {
 
     private static final LocalDate FIRST_OF_APRIL_2017 = LocalDate.of(2017, APRIL, 1);
@@ -18,7 +17,13 @@ public class TaxCalculatorAfterFirstYearForExpensiveVehiclesTest {
 
     @Before
     public void setUp() {
-        taxCalculator = new DummyTaxCalculator();
+        taxCalculator = new TaxCalculator2019();
+        Features.different_rate_for_expensive_vehicles = true;
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        Features.different_rate_for_expensive_vehicles = false;
     }
 
     @Test
